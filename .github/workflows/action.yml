@@ -22,8 +22,10 @@ jobs:
 
           EXPECTED_HASH="d5d3327091ebff0ce9388371d38dd3ceedb995fec29a9052cbb6dc1d590e675e - "
 
-          echo $CALCULATED_HASH
           echo $EXPECTED_HASH
+
+          echo $CALCULATED_HASH | base64
+          echo $EXPECTED_HASH | base64
 
           if [ "$CALCULATED_HASH" = "$EXPECTED_HASH" ]; then
             echo "The strings are equal."
