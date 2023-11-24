@@ -12,7 +12,11 @@ jobs:
     steps:
       - name: Get tickets
         run: |
-          RESPONSE=$(curl -s 'https://bookings.drumshedslondon.com/api/4.0/package/ticketavailability' -H 'cookie: kabFLOW=%2CsqAXsw6eoJK1KBKpT2Jrau4Eut3bNF7eoYdywsVSGpjYOSNYIxXxdRcwbhFUmzy' -H 'package-id: 20092')
+          curl -s -D headers.txt --location 'https://bookings.drumshedslondon.com/api/start' --header 'content-type: application/x-www-form-urlencoded' --header 'package-id: 20092' --data-urlencode 'client_id=69' --data-urlencode 'package_id=20092' --data-urlencode 'agent_id=' --data-urlencode 'adults=0' --data-urlencode 'children=0' --data-urlencode 'infants=0' --data-urlencode 'currency_id=98'
+
+          cookie=$(grep -i 'Set-Cookie' headers.txt | awk '{print $2}')
+          
+          RESPONSE=$(curl -s "https://bookings.drumshedslondon.com/api/4.0/package/ticketavailability" -H "cookie: $cookie" -H "package-id: 20092")
           
           echo $RESPONSE
 
