@@ -20,7 +20,7 @@ jobs:
 
           echo $CALCULATED_HASH
 
-          if [ "$CALCULATED_HASH" = "abc" ]; then
+          if [ "$CALCULATED_HASH" = "d5d3327091ebff0ce9388371d38dd3ceedb995fec29a9052cbb6dc1d590e675e -" ]; then
             echo "The strings are equal."
           else
             echo "The strings are not equal."
