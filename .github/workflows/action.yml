@@ -20,5 +20,7 @@ jobs:
         uses: actions/checkout@v4
       - name: sleep
         run: sleep 1m
+      - name: Set script permissions
+        run: chmod +x ./script.sh
       - name: Check tickets
         run: ./script.sh
