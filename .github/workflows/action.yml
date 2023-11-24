@@ -15,12 +15,11 @@ jobs:
     steps:
       - name: Check out the repository to the runner
         uses: actions/checkout@v4
-      - name: sleep
-        run: sleep 1m
       - name: Set script permissions
         run: chmod +x script.sh
       - name: Check tickets
         run: |
             for run in {1..20}; do
+              sleep 1m
               sh script.sh
             done
