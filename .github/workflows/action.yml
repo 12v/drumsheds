@@ -1,0 +1,29 @@
+name: Almeida
+
+on:
+  push:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+jobs:
+  check_tickets:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get tickets
+        run: |
+          RESPONSE=$(curl 'https://bookings.drumshedslondon.com/api/4.0/package/ticketavailability' -H 'cookie: kabFLOW=%2CsqAXsw6eoJK1KBKpT2Jrau4Eut3bNF7eoYdywsVSGpjYOSNYIxXxdRcwbhFUmzy' -H 'package-id: 20092')
+          
+          echo $RESPONSE
+          
+          MATCHES=$(echo $RESPONSE | jq '.[0].performances[] | select(.isOnSale != false or (.performanceStatusMessage != "Sold out" and .performanceStatusMessage != "Tickets not on sale"))')
+          
+          echo $MATCHES
+          
+          if [ -z "$MATCHES" ]
+          then
+          echo "No matches found"
+          else
+          echo "Matches found"
+          exit 111
+          fi
