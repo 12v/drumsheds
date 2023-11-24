@@ -7,13 +7,11 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: drumsheds-workflow
+  group: drumsheds
 
 jobs:
   check_tickets_repeatedly:
     runs-on: ubuntu-latest
-    concurrency:
-      group: drumsheds-job
     steps:
       - name: Check out the repository to the runner
         uses: actions/checkout@v4
