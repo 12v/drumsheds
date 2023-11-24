@@ -6,11 +6,19 @@ on:
     - cron: '*/5 * * * *'
   workflow_dispatch:
 
+concurrency:
+  group: drumsheds
+
 jobs:
-  check_tickets:
+  check_tickets_repeatedly:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        instance: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
     steps:
       - name: Check out the repository to the runner
-        uses: actions/checkout@v4  
-      - name: Get tickets
+        uses: actions/checkout@v4
+      - name: sleep
+        run: sleep 1m
+      - name: Check tickets
         run: ./script.sh
