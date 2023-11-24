@@ -12,18 +12,17 @@ jobs:
     steps:
       - name: Get tickets
         run: |
-          RESPONSE=$(curl 'https://bookings.drumshedslondon.com/api/4.0/package/ticketavailability' -H 'cookie: kabFLOW=%2CsqAXsw6eoJK1KBKpT2Jrau4Eut3bNF7eoYdywsVSGpjYOSNYIxXxdRcwbhFUmzy' -H 'package-id: 20092')
+          RESPONSE=$(curl -s 'https://bookings.drumshedslondon.com/api/4.0/package/ticketavailability' -H 'cookie: kabFLOW=%2CsqAXsw6eoJK1KBKpT2Jrau4Eut3bNF7eoYdywsVSGpjYOSNYIxXxdRcwbhFUmzy' -H 'package-id: 20092')
           
           echo $RESPONSE
-          
-          MATCHES=$(echo $RESPONSE | jq '.[0].performances[] | select(.isOnSale != false or (.performanceStatusMessage != "Sold out" and .performanceStatusMessage != "Tickets not on sale"))')
-          
-          echo $MATCHES
-          
-          if [ -z "$MATCHES" ]
-          then
-          echo "No matches found"
+
+          CALCULATED_HASH=$(echo -n $RESPONSE | sha256sum)
+
+          echo $CALCULATED_HASH
+
+          if [ "$CALCULATED_HASH" = "abc" ]; then
+            echo "The strings are equal."
           else
-          echo "Matches found"
-          exit 111
+            echo "The strings are not equal."
+            exit 111
           fi
