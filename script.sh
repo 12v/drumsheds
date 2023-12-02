@@ -8,8 +8,9 @@ RESPONSE=$(curl -s "https://bookings.drumshedslondon.com/api/4.0/package/ticketa
 
 echo $RESPONSE
 
-if echo "$RESPONSE" | jq '.tickets[] | select(.id == 169632 and .available > 0)' | grep -q .; then
+if echo "$RESPONSE" | jq '.tickets[] | select(.id == 169632 and .available > 1)' | grep -q .; then
     echo "Ticket with id 169632 is available."
+    echo "::set-output name=tickets::true"
     exit 111
 else
     echo "Ticket with id 169632 is not available."
