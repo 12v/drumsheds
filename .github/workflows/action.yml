@@ -27,8 +27,9 @@ jobs:
         id: check-tickets-step
         run: |
             for run in {1..120}; do
-              sh script.sh || true
-              exit_code=$?
+              sh script.sh
+              exit_code=$(cat output.txt)
+              echo $exit_code
               if [ $exit_code -eq 111 ]; then
                 exit 0
               elif [ $exit_code -ne 0 ]; then

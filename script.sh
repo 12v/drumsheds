@@ -11,8 +11,8 @@ echo $RESPONSE
 if echo "$RESPONSE" | jq '.tickets[] | select(.id == 169632 and .available > 1)' | grep -q .; then
     echo "Ticket with id 169632 is available."
     echo "{tickets}={true}" >> $GITHUB_OUTPUT
-    exit 111
+    echo 111 > output.txt
 else
     echo "Ticket with id 169632 is not available."
-    exit 111
+    echo 111 > output.txt
 fi
