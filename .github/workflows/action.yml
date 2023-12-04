@@ -30,6 +30,7 @@ jobs:
               sh script.sh
               exit_code=$(cat output.txt)
               if [ $exit_code -eq 111 ]; then
+                echo "{tickets}={true}" >> $GITHUB_OUTPUT
                 exit 0
               elif [ $exit_code -ne 0 ]; then
                 exit $exit_code
