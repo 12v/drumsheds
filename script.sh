@@ -14,4 +14,5 @@ if echo "$RESPONSE" | jq '.tickets[] | select(.id == 169632 and .available > 1)'
     exit 111
 else
     echo "Ticket with id 169632 is not available."
+    exit 111
 fi
