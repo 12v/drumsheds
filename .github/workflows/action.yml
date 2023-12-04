@@ -26,7 +26,6 @@ jobs:
       - name: Check tickets
         id: check-tickets-step
         run: |
-            exit 0
             for run in {1..120}; do
               sh script.sh
               exit_code=$(cat output.txt)
