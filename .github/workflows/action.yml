@@ -29,12 +29,9 @@ jobs:
             for run in {1..120}; do
               sh script.sh
               exit_code=$(cat output.txt)
-              echo $exit_code
               if [ $exit_code -eq 111 ]; then
-                echo "exit_code $exit_code is 111, exiting with 0"
                 exit 0
               elif [ $exit_code -ne 0 ]; then
-                echo "exit_code is not 111, exiting with $exit_code"
                 exit $exit_code
               fi
               sleep 10
